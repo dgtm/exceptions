@@ -3,6 +3,6 @@
 <% @failures.each do |failure| %>
   <li><%= failure.type %></li>
   <li><%= failure.message %></li>
-  <li><%= failure.syntax_highlighter((failure.format_backtrace)).html_safe %></li>
+  <li><%= failure.syntax_highlighter(failure.format_backtrace).html_safe %></li>
 <% end %>
 </ul>

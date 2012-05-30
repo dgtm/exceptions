@@ -38,7 +38,7 @@ class Failure
 
 
   def format_backtrace
-    backtrace.inject {|str, btrace| str.concat(btrace).concat("\n") }.html_safe
+    backtrace.first(20).inject {|str, btrace| str.concat(btrace).concat("\n") }.html_safe
   end
 
   private
