@@ -2,6 +2,10 @@ module Exceptions
   class Engine < Rails::Engine
     isolate_namespace Exceptions
 
+    # config.to_prepare do
+    #   ApplicationController.helper(ApplicationHelper)
+    # end
+
     def self.client_id
       "66ad998285939cb1ed1b"
     end
