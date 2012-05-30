@@ -1,6 +1,7 @@
 module Exceptions
   class FailuresController < ApplicationController
     before_filter :github, :only => [:github_authorization, :github_callback]
+
     def index
       @failures = Failure.all
       render "failures/index"
@@ -41,14 +42,14 @@ module Exceptions
     #   @auth_url = @client.auth_code.authorize_url(:redirect_uri => redirect_uri, :scope => 'user')
     #   redirect_to @auth_url
     # end
-    # 
+    #
     # def redirect_uri(path = '/exceptions/githook', query = nil)
     #   uri = URI.parse(request.url)
     #   uri.path  = path
     #   uri.query = query
     #   uri.to_s
     # end
-    # 
+    #
     # private
     # def github
     #   @client = Exceptions::Engine.git_client
