@@ -1,8 +1,21 @@
-<h1>Failures</h1>
 <ul>
 <% @failures.each do |failure| %>
-  <li><%= failure.type %></li>
-  <li><%= failure.message %></li>
-  <li><%= failure.syntax_highlighter(failure.format_backtrace).html_safe %></li>
+
+ <div class='headers'>
+ <div class='count'>
+  	<%= failure.total %>
+ </div>
+  <span class='title'>
+  	<%= failure.type %>
+  	<span class='time'>
+  		<div>
+  			<%= failure.updated_at.to_s %>
+  		</div>
+  	</span>
+  </span>
+  <div class='message'><%= failure.message %></div>
+</div>
+  <div class='trace'><%= failure.syntax_highlighter(failure.format_backtrace).html_safe %></div>
+  <hr>
 <% end %>
 </ul>

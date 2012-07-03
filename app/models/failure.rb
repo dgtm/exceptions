@@ -6,8 +6,8 @@ class Failure
   field :message
   field :backtrace
   field :trace
+  field :total, type: Integer, default: 1
 
-  attr_accessor :count
   # before_save :markdownize!
 
   scope :of_the_same_type_as, ->(type) { where(:type => type) }
@@ -22,23 +22,36 @@ class Failure
     CodeRay.scan(text, :ruby).div(:line_numbers => :table)
   end
 
+  def self.update_record(type,exception)
+    original_failure = where(:type => type, :message => exception.message, :backtrace => exception.backtrace, :updated_at.gte => (Time.now-2.minutes)).first
+    if original_failure
+      original_failure.update_attributes(:total => original_failure.total + 1)
+      original_failure.save!
+      original_failure
+    else
+      new_failure = create!(:type => type, :message => exception.message, :backtrace => exception.backtrace)
+      new_failure
+    end
+  end
+
   def self.notify(type, exception)
-    create!(:type => type, :message => exception.message, :backtrace => exception.backtrace)
+    record = update_record(type,exception)
+    DeveloperMailer.notify_exception(record.id)
   end
 
   # class String
-    def markdownize!
-      bt = format_backtrace
-      options = {:hard_wrap => true, :filter_html => true, :autolink => true, :no_intra_emphasis => true, :fenced_code_blocks => true, :space_after_headers => true}
-      markdown = ::Redcarpet::Markdown.new(::Redcarpet::Render::HTML, options)
-      # self.trace = markdown.render(bt).html_safe
-      self.trace = bt
-    end
+  def markdownize!
+    bt = format_backtrace
+    options = {:hard_wrap => true, :filter_html => true, :autolink => true, :no_intra_emphasis => true, :fenced_code_blocks => true, :space_after_headers => true}
+    markdown = ::Redcarpet::Markdown.new(::Redcarpet::Render::HTML, options)
+    # self.trace = markdown.render(bt).html_safe
+    self.trace = bt
+  end
   # end
 
 
   def format_backtrace
-    backtrace.first(20).inject {|str, btrace| str.concat(btrace).concat("\n") }.html_safe
+    backtrace.first(40).inject {|str, btrace| str.concat(btrace).concat("\n") }.html_safe
   end
 
   private

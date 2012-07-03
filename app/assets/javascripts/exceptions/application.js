@@ -7,3 +7,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+$(document).ready(function(){
+	$('.headers').next().toggle();
+	$('.headers').live('click',function(){
+		$(this).css({color: 'gray'});
+		$(this).next().toggle();
+	});
+});

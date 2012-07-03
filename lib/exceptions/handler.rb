@@ -44,7 +44,7 @@ module Exceptions
         if exception.is_a?(SocketError) || exception.is_a?(Timeout::Error)
           raise ApiError
         else
-          # raise StandardError
+          raise exception
         end
         #log(exception)
       end

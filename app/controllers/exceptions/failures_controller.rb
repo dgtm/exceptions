@@ -1,9 +1,9 @@
 module Exceptions
-  class FailuresController < ApplicationController
-    before_filter :github, :only => [:github_authorization, :github_callback]
-
+  class FailuresController < ExceptionsController
+    # before_filter :github, :only => [:github_authorization, :github_callback]
+    # layout 'exceptions' 
     def index
-      @failures = Failure.all
+      @failures = Failure.all.desc(:updated_at)
       render "failures/index"
     end
 

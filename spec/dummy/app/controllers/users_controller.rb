@@ -14,7 +14,6 @@ class UsersController < ActionController::Base
   end
 
   def create
-    binding.pry
     @user = User.new(params[:user])
     @user.save
     redirect_to users_path
