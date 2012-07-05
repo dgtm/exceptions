@@ -7,9 +7,10 @@
  </div>
   <span class='title'>
   	<%= failure.type %>
+    <%= failure.klass if failure.klass %>
   	<span class='time'>
   		<div>
-  			<%= failure.updated_at.to_s %>
+  			<%= time_ago_in_words(failure.updated_at) + " ago")  %>
   		</div>
   	</span>
   </span>

@@ -6,6 +6,7 @@ class Failure
   field :message
   field :backtrace
   field :trace
+  field :klass
   field :total, type: Integer, default: 1
 
   # before_save :markdownize!
@@ -23,7 +24,7 @@ class Failure
   end
 
   def self.update_record(type,exception)
-    original_failure = where(:type => type, :message => exception.message, :backtrace => exception.backtrace, :updated_at.gte => (Time.now-2.minutes)).first
+    original_failure = where(:klass => exception.class, :type => type, :message => exception.message, :backtrace => exception.backtrace, :updated_at.gte => (Time.now-2.minutes)).first
     if original_failure
       original_failure.update_attributes(:total => original_failure.total + 1)
       original_failure.save!
@@ -53,8 +54,5 @@ class Failure
   def format_backtrace
     backtrace.first(40).inject {|str, btrace| str.concat(btrace).concat("\n") }.html_safe
   end
-
-  private
-
 
 end
