@@ -1,3 +1,16 @@
 = Exceptions
 
-This project rocks and uses MIT-LICENSE.
+1. Mount at your favorite location
+
+2. Wrap your code
+
+    execute "Description" do
+      ....
+      ....
+    end
+
+3. Relax
+
+=TODOS 
+Include an inherent ExceptionMailer
+
