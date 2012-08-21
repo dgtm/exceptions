@@ -9,7 +9,7 @@
       ....
     end
 
-3. Relax
+3. Fix exceptions, like a boss
 
 =TODOS 
 Include an inherent ExceptionMailer
