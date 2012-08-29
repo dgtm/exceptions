@@ -1,6 +1,6 @@
 development:
   host: localhost
-  database: dummy_development
+  database: demoapp_development
 
 test:
   host: localhost

@@ -24,13 +24,13 @@ class Failure
   end
 
   def self.update_record(type,exception)
-    original_failure = where(:klash => exception.class, :type => type, :message => exception.message, :backtrace => exception.backtrace, :updated_at.gte => (Time.now-2.minutes)).first
+    original_failure = where(:klash => exception.class.to_s, :type => type, :message => exception.message, :backtrace => exception.backtrace, :updated_at.gte => (Time.now-2.minutes)).first
     if original_failure
       original_failure.update_attributes(:total => original_failure.total + 1)
       original_failure.save!
       original_failure
     else
-      new_failure = create!(:type => type, :message => exception.message, :backtrace => exception.backtrace)
+      new_failure = create!(:type => type, :message => exception.message, :backtrace => exception.backtrace, :klash => exception.class.to_s)
       new_failure
     end
   end

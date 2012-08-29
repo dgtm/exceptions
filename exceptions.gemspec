@@ -30,11 +30,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "capybara-webkit"
   s.add_development_dependency "launchy"
 
-  # s.add_development_dependency "pry-rails"
-  # s.add_development_dependency "pry-nav"
-  # s.add_development_dependency "mongoid", "~> 2.4"
-  # s.add_development_dependency "bson_ext", "~> 1.5"
-  # s.add_dependency "jquery-rails"
-
   s.add_development_dependency "sqlite3"
 end
