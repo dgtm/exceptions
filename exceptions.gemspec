@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = Exceptions::VERSION
   s.authors     = ["dgtm"]
   s.email       = ["dipeshgtm@gmail.com"]
-  s.homepage    = "github.com/dgtm"
+  s.homepage    = "http://www.github.com/dgtm"
   s.summary     = "Handles Exceptions"
   s.description = "Catch exceptions and list them via a web interface"
 
